@@ -2,7 +2,8 @@
 //Kashin Danil Sergeevich, 154-2, 28-11-2016
 //Visual Studio Community 2015 
 
-#include "main_header.h"
+#include "main.h"
+#include "heap.h"
 
 #include <fstream>
 #include <codecvt>
@@ -20,11 +21,11 @@ int main()
 void
 codeWithHoffman()
 {
-    std::map<wchar_t, int> frequenciesMap = getFrequencies("test.txt");
+    std::map<wchar_t, int> frequenciesMap = getFileCharFrequencies("test.txt");
 
     std::vector<std::pair<wchar_t, int>> frequencesVect = getSortedVector(frequenciesMap);
     
-
+    Heap::HuffmanCodes(frequencesVect, 7);
 
     system("pause");
 }
@@ -48,7 +49,7 @@ decodeWithShannonFano()
 }
 
 std::map<wchar_t, int>
-getFrequencies(char* filename)
+getFileCharFrequencies(char* filename)
 {
     // initialize locale and stream
     std::locale locale(std::locale(), new std::codecvt_utf8<wchar_t>);
@@ -79,13 +80,13 @@ getSortedVector(std::map<wchar_t, int> map)
 {
     auto vector = std::vector<std::pair<wchar_t, int>>();
 
-    for (std::pair<wchar_t, int> kv : map) {
-        vector.push_back(kv);
+    for (std::pair<wchar_t, int> pair : map) {
+        vector.push_back(pair);
     }
 
-    std::sort(vector.begin(), vector.end(), [](auto &left, auto &right) {
-        return left.second > right.second;
-    });
+    //std::sort(vector.begin(), vector.end(), [](auto &left, auto &right) {
+    //    return left.second > right.second;
+    //});
 
     return vector;
 }
