@@ -1,14 +1,106 @@
-﻿Сборка начата 29.11.2016 16:16:21.
-     1>Проект "C:\Users\Кашин\Documents\Visual Studio 2015\Projects\huffman-shannon-fano-coding\huffman-shannon-fano-coding\huffman-shannon-fano-coding.vcxproj" в узле 2 (целевые объекты Build).
+﻿Сборка начата 01.12.2016 2:20:54.
+     1>Проект "C:\Users\Кашин\documents\visual studio 2015\Projects\huffman-shannon-fano-coding\huffman-shannon-fano-coding\huffman-shannon-fano-coding.vcxproj" в узле 2 (целевые объекты Build).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt heap.cpp
-         heap.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt util.cpp
+         util.cpp
+     1>c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(2148): warning C4800: int: принудительно задано логическое значение "true" или "false" (предупреждение о производительности)
+         c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(2169): note: см. ссылку на создание экземпляров функции шаблон при компиляции "_OutIt std::_Copy_impl<_Iter,_OutIt>(_InIt,_InIt,_OutIt,std::_Nonscalar_ptr_iterator_tag)"
+                 with
+                 [
+                     _OutIt=std::_Vb_iterator<std::_Wrap_alloc<std::allocator<std::_Vbase>>>,
+                     _Iter=int *,
+                     _InIt=int *
+                 ]
+         c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(2200): note: см. ссылку на создание экземпляров функции шаблон при компиляции "_OutIt std::_Copy_impl<_InIt,_Iter>(_InIt,_InIt,_OutIt)"
+                 with
+                 [
+                     _OutIt=std::_Vb_iterator<std::_Wrap_alloc<std::allocator<std::_Vbase>>>,
+                     _InIt=int *,
+                     _Iter=std::_Vb_iterator<std::_Wrap_alloc<std::allocator<std::_Vbase>>>
+                 ]
+         c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(2210): note: см. ссылку на создание экземпляров функции шаблон при компиляции "_OutIt std::_Copy_impl<_InIt,_OutIt>(_InIt,_InIt,_OutIt,std::random_access_iterator_tag,std::random_access_iterator_tag)"
+                 with
+                 [
+                     _OutIt=std::_Vb_iterator<std::_Wrap_alloc<std::allocator<std::_Vbase>>>,
+                     _InIt=int *
+                 ]
+         c:\program files (x86)\microsoft visual studio 14.0\vc\include\xutility(2230): note: см. ссылку на создание экземпляров функции шаблон при компиляции "_OutIt std::_Copy_impl<_Iter,_OutIt>(_InIt,_InIt,_OutIt,std::true_type)"
+                 with
+                 [
+                     _OutIt=std::_Vb_iterator<std::_Wrap_alloc<std::allocator<std::_Vbase>>>,
+                     _Iter=int *,
+                     _InIt=int *
+                 ]
+         c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(2844): note: см. ссылку на создание экземпляров функции шаблон при компиляции "_OutIt std::copy<_Iter,std::_Vb_iterator<std::_Wrap_alloc<std::allocator<_Other>>>>(_InIt,_InIt,_OutIt)"
+                 with
+                 [
+                     _OutIt=std::_Vb_iterator<std::_Wrap_alloc<std::allocator<std::_Vbase>>>,
+                     _Iter=int *,
+                     _Other=std::_Vbase,
+                     _InIt=int *
+                 ]
+         c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(2819): note: см. ссылку на создание экземпляров функции шаблон при компиляции "void std::vector<bool,std::allocator<_Ty>>::_Insert<_Iter>(std::_Vb_const_iterator<std::_Wrap_alloc<std::allocator<_Other>>>,_Iter,_Iter,std::forward_iterator_tag)"
+                 with
+                 [
+                     _Ty=bool,
+                     _Iter=int *,
+                     _Other=std::_Vbase
+                 ]
+         c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(2819): note: см. ссылку на создание экземпляров функции шаблон при компиляции "void std::vector<bool,std::allocator<_Ty>>::_Insert<_Iter>(std::_Vb_const_iterator<std::_Wrap_alloc<std::allocator<_Other>>>,_Iter,_Iter,std::forward_iterator_tag)"
+                 with
+                 [
+                     _Ty=bool,
+                     _Iter=int *,
+                     _Other=std::_Vbase
+                 ]
+         c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(2520): note: см. ссылку на создание экземпляров функции шаблон при компиляции "std::_Vb_iterator<std::_Wrap_alloc<std::allocator<_Other>>> std::vector<bool,std::allocator<_Ty>>::insert<_Iter>(std::_Vb_const_iterator<std::_Wrap_alloc<std::allocator<_Other>>>,_Iter,_Iter)"
+                 with
+                 [
+                     _Other=std::_Vbase,
+                     _Ty=bool,
+                     _Iter=int *
+                 ]
+         c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(2520): note: см. ссылку на создание экземпляров функции шаблон при компиляции "std::_Vb_iterator<std::_Wrap_alloc<std::allocator<_Other>>> std::vector<bool,std::allocator<_Ty>>::insert<_Iter>(std::_Vb_const_iterator<std::_Wrap_alloc<std::allocator<_Other>>>,_Iter,_Iter)"
+                 with
+                 [
+                     _Other=std::_Vbase,
+                     _Ty=bool,
+                     _Iter=int *
+                 ]
+         c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(2514): note: см. ссылку на создание экземпляров функции шаблон при компиляции "void std::vector<bool,std::allocator<_Ty>>::_BConstruct<_Iter>(_Iter,_Iter)"
+                 with
+                 [
+                     _Ty=bool,
+                     _Iter=int *
+                 ]
+         c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(2514): note: см. ссылку на создание экземпляров функции шаблон при компиляции "void std::vector<bool,std::allocator<_Ty>>::_BConstruct<_Iter>(_Iter,_Iter)"
+                 with
+                 [
+                     _Ty=bool,
+                     _Iter=int *
+                 ]
+         c:\users\кашин\documents\visual studio 2015\projects\huffman-shannon-fano-coding\huffman-shannon-fano-coding\util.cpp(81): note: см. ссылку на создание экземпляров функции шаблон при компиляции "std::vector<bool,std::allocator<_Ty>>::vector<int*,void>(_Iter,_Iter,const _Alloc &)"
+                 with
+                 [
+                     _Ty=bool,
+                     _Iter=int *,
+                     _Alloc=std::allocator<bool>
+                 ]
+         c:\users\кашин\documents\visual studio 2015\projects\huffman-shannon-fano-coding\huffman-shannon-fano-coding\util.cpp(81): note: см. ссылку на создание экземпляров функции шаблон при компиляции "std::vector<bool,std::allocator<_Ty>>::vector<int*,void>(_Iter,_Iter,const _Alloc &)"
+                 with
+                 [
+                     _Ty=bool,
+                     _Iter=int *,
+                     _Alloc=std::allocator<bool>
+                 ]
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Кашин\Documents\Visual Studio 2015\Projects\huffman-shannon-fano-coding\Debug\huffman-shannon-fano-coding.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Кашин\Documents\Visual Studio 2015\Projects\huffman-shannon-fano-coding\Debug\huffman-shannon-fano-coding.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Кашин\Documents\Visual Studio 2015\Projects\huffman-shannon-fano-coding\Debug\huffman-shannon-fano-coding.lib" /MACHINE:X86 Debug\heap.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Кашин\documents\visual studio 2015\Projects\huffman-shannon-fano-coding\Debug\huffman-shannon-fano-coding.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Кашин\documents\visual studio 2015\Projects\huffman-shannon-fano-coding\Debug\huffman-shannon-fano-coding.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Кашин\documents\visual studio 2015\Projects\huffman-shannon-fano-coding\Debug\huffman-shannon-fano-coding.lib" /MACHINE:X86 Debug\bit_writer.obj
+         Debug\heap.obj
          Debug\main.obj
-         huffman-shannon-fano-coding.vcxproj -> C:\Users\Кашин\Documents\Visual Studio 2015\Projects\huffman-shannon-fano-coding\Debug\huffman-shannon-fano-coding.exe
-     1>Сборка проекта "C:\Users\Кашин\Documents\Visual Studio 2015\Projects\huffman-shannon-fano-coding\huffman-shannon-fano-coding\huffman-shannon-fano-coding.vcxproj" завершена (целевые объекты Build).
+         Debug\util.obj
+         huffman-shannon-fano-coding.vcxproj -> C:\Users\Кашин\documents\visual studio 2015\Projects\huffman-shannon-fano-coding\Debug\huffman-shannon-fano-coding.exe
+     1>Сборка проекта "C:\Users\Кашин\documents\visual studio 2015\Projects\huffman-shannon-fano-coding\huffman-shannon-fano-coding\huffman-shannon-fano-coding.vcxproj" завершена (целевые объекты Build).
 
 Сборка успешно завершена.
 
-Затраченное время: 00:00:02.13
+Затраченное время: 00:00:09.96
