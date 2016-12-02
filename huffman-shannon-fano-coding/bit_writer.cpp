@@ -17,42 +17,21 @@ clearBuffer()
 }
 
 BitWriter::
-BitWriter(const char* filename)
+BitWriter(std::ofstream& inputStream) : stream(inputStream)
 {
-    this->filename = filename;
-    
-    stream = std::ofstream(filename, std::ios::binary);
-    
-    if (!stream.is_open()) {
-        std::cout << "Невозможно открыть файл: ";
-        std::cout << filename;
-    }
-
     clearBuffer();
-}
-
-BitWriter::
-~BitWriter()
-{
-    stream.close();
 }
 
 void
 BitWriter::
 writeBit(int i)
 {
-    try {
-        buffer |= i << (7 - bufferBitSize);
-        bufferBitSize++;
+    buffer |= i << (7 - bufferBitSize);
+    bufferBitSize++;
 
-        if (bufferBitSize == BITS_PER_BYTE) {
-            stream << buffer;
-            clearBuffer();
-        }
-    }
-    catch (...) {
-        std::cout << "Unable to open file.";
-        std::cout << "\n";
+    if (bufferBitSize == 8) {
+        stream.write((char*)&buffer, sizeof(buffer));
+        clearBuffer();
     }
 }
 
@@ -60,9 +39,9 @@ void
 BitWriter::
 writeWChar(wchar_t wchar)
 {
-    std::bitset<BITS_PER_BYTE * 2> bitset(wchar);
-    for (int i = 0; i < BITS_PER_BYTE * 2; ++i) {
-        writeBit(bitset[i]);
+    for (int i = 15; i >= 0; --i) {
+        bool b = (wchar >> i) & 1;
+        writeBit(b);
     }
 }
 
@@ -79,13 +58,9 @@ void
 BitWriter::
 forceWrite()
 {
-    try {
+    if (bufferBitSize > 0) {
         stream << buffer;
         clearBuffer();
-    }
-    catch (...) {
-        std::cout << "Unable to open file.";
-        std::cout << "\n";
     }
 }
 

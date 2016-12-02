@@ -4,11 +4,13 @@
 #include <climits>
 #include <iostream>
 
+
+
 Heap::Heap(std::vector<std::pair<wchar_t, int>> frequencies, const int size) : capacity(size)
 {
     storage = new Node*[size];
     for (int i = 0; i < size; ++i) {
-        storage[i] = new Heap::Node(frequencies[i].first, frequencies[i].second);
+        storage[i] = new Heap::Node(frequencies[i].first, frequencies[i].second, nullptr, nullptr);
     }
 
     currentSize = size;
@@ -16,6 +18,15 @@ Heap::Heap(std::vector<std::pair<wchar_t, int>> frequencies, const int size) : c
     for (int i = (size - 2) / 2; i >= 0; --i) {
         heapifyDown(i);
     }
+}
+
+Heap::Node::
+Node(wchar_t value, int frequency, Heap::Node* left, Heap::Node* right)
+{
+    this->value = value;
+    this->frequency = frequency;
+    this->left = left;
+    this->right = right;
 }
 
 Heap::Node*
@@ -37,7 +48,7 @@ extractMin()
         return min;
     }
     else {
-        throw std::out_of_range(" ");
+        return nullptr;
     }
 }
 

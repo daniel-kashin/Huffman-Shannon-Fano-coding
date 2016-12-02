@@ -1,5 +1,4 @@
-#ifndef HEAP_H
-#define HEAP_H
+#pragma once
 
 #include <vector> 
 
@@ -11,15 +10,16 @@ public:
     {
     public:
 
-        Node(wchar_t value, int frequency) {
-            this->value = value;
-            this->frequency = frequency;
-            this->left = this->right = nullptr;
-        }
+        Node(wchar_t value, int frequency, Node* left, Node* right);
+
+        Node(wchar_t value, Node* left, Node* right) : Node(value, 0, left, right) {}
+
+        Node() : Node(0, 0, nullptr, nullptr) {}
+
+
 
         bool isLeaf();
 
-        Node() : Node(0, 0) { }
 
         wchar_t value;
         int frequency;
@@ -32,14 +32,11 @@ public:
 
     ~Heap();
 
-
     Node* extractMin();
 
     void insert(Node* value);
 
     void heapifyDown(int index);
-
-    
 
 
     Node** storage;
@@ -48,5 +45,3 @@ public:
 
     const int capacity;
 };
-
-#endif

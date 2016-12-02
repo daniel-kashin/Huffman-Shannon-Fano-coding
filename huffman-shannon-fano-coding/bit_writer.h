@@ -1,5 +1,4 @@
-#ifndef BIT_WRITER_H
-#define BIT_WRITER_H
+#pragma once
 
 #include <vector>
 #include <bitset>
@@ -7,14 +6,12 @@
 #include <fstream>
 
 using byte = unsigned char;
-constexpr std::size_t BITS_PER_BYTE = std::numeric_limits<byte>::digits;
 
 
 class BitWriter
 {
 private:
-    const char* filename;
-    std::ofstream stream;
+    std::ofstream& stream;
     byte buffer;
     byte bufferBitSize;
 
@@ -22,9 +19,7 @@ private:
 
 public:
 
-    BitWriter(const char* filename);
-
-    ~BitWriter();
+    BitWriter(std::ofstream& stream);
 
     void writeBit(const int i);
 
@@ -33,7 +28,4 @@ public:
     void writeBits(const std::vector<bool>* bist);
 
     void forceWrite();
-
 };
-
-#endif

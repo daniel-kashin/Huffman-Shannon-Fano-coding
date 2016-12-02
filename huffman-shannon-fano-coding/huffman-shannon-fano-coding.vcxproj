@@ -146,12 +146,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bit_reader.cpp" />
     <ClCompile Include="bit_writer.cpp" />
     <ClCompile Include="heap.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bit_reader.h" />
     <ClInclude Include="bit_writer.h" />
     <ClInclude Include="heap.h" />
     <ClInclude Include="main.h" />
