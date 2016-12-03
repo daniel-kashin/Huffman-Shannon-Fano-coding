@@ -4,8 +4,6 @@
 
 #include "main.h"
 #include "util.h"
-#include "bit_reader.h"
-#include "bit_writer.h"
 
 #include <fstream>
 #include <codecvt>
@@ -17,104 +15,153 @@
 #include <bitset>
 
 
-int main()
+// variable to count elementary operations
+long long globalCounter;
+
+
+int main(int argc, char* argv[])
 {
-    encodeWithHuffman();
-    decodeWithHuffman();
+    char arg = ' ';
+
+    if (argc <= 1) { // no paramether: force read
+        std::cout << "Paramether expected: 0 -- Shannon-Fano, default -- Huffman.\n";
+        std::cin >> arg;
+        std::cin.clear();
+        std::cin.ignore(INT_MAX, '\n');
+    } else { // get second console paramether
+        arg = *argv[1];
+    }
+
+    if (arg == '0') {
+        encodeWithShannonFano();
+        decodeWithShannonFano();
+    } else {
+        encodeWithHuffman();
+        decodeWithHuffman();
+    }
+
+    system("pause");
 }
+
 
 void
 encodeWithHuffman()
 {
+    encode(true); // isHuffman = true
+}
+
+void
+decodeWithHuffman()
+{
+    decode(true);
+}
+
+void
+encodeWithShannonFano()
+{
+    encode(false);
+}
+
+void
+decodeWithShannonFano()
+{
+    decode(false);
+}
+
+void
+encode(bool isHuffman)
+{
     std::unordered_map<wchar_t, int> frequenciesMap;
     std::string inputFileName;
+    globalCounter = 0;
 
+    // greeting
+    std::string codingName = isHuffman ? "Huffman" : "Shannon-Fano";
+    std::string message = "\nWrite filename to encode with " + codingName + " (.txt)";
+    std::cout << message << std::endl;
+    
+    // read input filename
     bool fileDoesNotExist = true;
-    while (fileDoesNotExist)
-    {
-        inputFileName = Util::readFileNameFromConsole("Please, write filename to encode with Huffman. (.txt)", ".txt");
+    while (fileDoesNotExist) {
+        inputFileName = Util::readFileNameFromConsole(".txt");
 
         // get frequencies of all the letters in the input file
         frequenciesMap = Util::getFileCharFrequencies(inputFileName);
 
         fileDoesNotExist = (static_cast<int>(frequenciesMap.size()) == 0);
-        
-        if (fileDoesNotExist) std::cout << "Input file is either empty or does not exist.\n" << std::endl;
+
+        if (fileDoesNotExist) std::cout << "Input file is either empty or does not exist." << std::endl;
     };
 
-
+    // get output filename
     std::string* outputFileName = new std::string("");
-    Util::changeFileNameFormat(inputFileName, ".huff", outputFileName);
-
-    std::vector<std::pair<wchar_t, int>> frequenciesVect =
-        Util::getVector(frequenciesMap);
+    std::string fileExtension = isHuffman ? ".huff" : ".shan";
+    Util::changeFileNameFormat(inputFileName, fileExtension, outputFileName);
 
     // build tree based on frequences of each letter
-    Heap::Node* root = Util::buildHuffmanTree(frequenciesVect);
+    std::vector<std::pair<wchar_t, int>> frequenciesVect = Util::getVector(frequenciesMap);
+    Heap::Node* root;
+    if (isHuffman) {
+        root = Util::buildHuffmanTree(frequenciesVect);
+    }
+    else {
+        root = Util::buildShannonTree(frequenciesVect);
+    }
 
+    // get unique code for each letter 
     auto huffmanCodes = new std::unordered_map<wchar_t, std::vector<bool>*>();
     Util::fillHuffmanCodes(root, huffmanCodes);
 
-    std::ofstream* stream = new std::ofstream(*outputFileName, std::ios::binary);
-
     // write length in letters of the input file
+    std::ofstream* stream = new std::ofstream(*outputFileName, std::ios::binary);
     stream->write((char *)&root->frequency, sizeof(root->frequency));
 
+    // write tree and file itself
     BitWriter* writer = new BitWriter(*stream);
-
-    // write tree to the header of the output file 
     Util::encodeNode(root, writer);
-
-    // encode input file to the output
     Util::encodeFile(huffmanCodes, inputFileName, writer);
 
     stream->close();
 }
 
 void
-decodeWithHuffman()
+decode(bool isHuffman)
 {
     std::string inputFileName;
     std::ifstream* stream = nullptr;
+    globalCounter = 0;
 
+    // greeting
+    std::cout << "\n";
+    std::string fileExtension = isHuffman ? ".huff" : ".shan";
+    std::string message = "Write filename to decode with Huffman. (" + fileExtension + ")";
+    std::cout << message << std::endl;
+    
+    // read input filename
     bool fileDoesNotExist = true;
     while (fileDoesNotExist) {
-        inputFileName = Util::readFileNameFromConsole("Please, write filename to decode with Huffman. (.huff)", ".huff");
+        inputFileName = Util::readFileNameFromConsole(fileExtension);
         stream = new std::ifstream(inputFileName, std::ios::binary);
 
         fileDoesNotExist = !stream->is_open();
-        if (fileDoesNotExist) std::cout << "Input file is either empty or does not exist.\n" << std::endl;
+        if (fileDoesNotExist) std::cout << "Input file is either empty or does not exist." << std::endl;
     }
 
+    // get output filename
     std::string* outputFileName = new std::string("");
-    Util::changeFileNameFormat(inputFileName, "-unz-h.txt", outputFileName);
-    
-    int fileLength = Util::decodeFileLength(stream);
+    std::string addition = isHuffman ? "-unz-h.txt" : "-unz-s.txt";
+    Util::changeFileNameFormat(inputFileName, addition, outputFileName);
 
-    BitReader* bitReader = new BitReader(*stream);
+    // decode file
+    try {
+        int fileLength = Util::decodeFileLength(stream);
 
-    Heap::Node* root = Util::decodeNode(bitReader);
+        BitReader* bitReader = new BitReader(*stream);
 
-    Util::decodeFile(bitReader, *outputFileName, root, fileLength);
+        Heap::Node* root = Util::decodeNode(bitReader);
+        
+        Util::decodeFile(bitReader, *outputFileName, root, fileLength);
+    } catch (...) {
+        std::cout << "Wrong file data. Please, don`t change .huff and .shan files.";
+    }
 }
-
-void
-encodeWithShannonFano(const char* inputFileName)
-{
-    std::string* newName = new std::string("");
-    Util::changeFileNameFormat(inputFileName, ".shan", newName);
-    const char* outputFileName = newName->c_str();
-
-
-}
-
-void
-decodeWithShannonFano(const char* inputFileName)
-{
-    std::string* newName = new std::string("");
-    Util::changeFileNameFormat(inputFileName, "-unz-h.txt", newName);
-    const char* outputFileName = newName->c_str();
-
-
-}
-

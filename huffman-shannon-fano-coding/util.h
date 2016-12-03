@@ -15,7 +15,7 @@ public:
 
     static bool hasEnding(std::string const &fullString, std::string const &ending);
 
-    static const std::string readFileNameFromConsole(const char* message, const char* fileType);
+    static const std::string readFileNameFromConsole(const std::string& fileType);
 
     static std::vector<std::pair<wchar_t, int>> getVector(std::unordered_map<wchar_t, int> map);
 
@@ -29,7 +29,7 @@ public:
     static void fillHuffmanCodes(Heap::Node* root, std::unordered_map<wchar_t, std::vector<bool>*>* huffmanCodes);
 
     static Heap::Node* buildHuffmanTree(std::vector<std::pair<wchar_t, int>> frequences);
-
+    
     static void encodeFile(std::unordered_map<wchar_t, std::vector<bool>*>* huffmanCodes,
         std::string& inputFileName, BitWriter* writer);
 
@@ -37,6 +37,12 @@ public:
 
     static void fillHuffmanCodesFromRoot(Heap::Node* root, int* buffer, int bufferTop,
         std::unordered_map<wchar_t, std::vector<bool>*>* output);
+
+
+    static Heap::Node* buildShannonTree(std::vector<std::pair<wchar_t, int>> frequences);
+
+    static Heap::Node* divideAndReturnParent(std::vector<std::pair<wchar_t, int>> frequences, bool root);
+
 
 
     // decoding

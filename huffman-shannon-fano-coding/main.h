@@ -1,5 +1,7 @@
 #pragma once
 
+extern long long globalCounter;
+
 void
 encodeWithHuffman();
 
@@ -11,4 +13,10 @@ encodeWithShannonFano();
 
 void
 decodeWithShannonFano();
+
+void
+encode(bool isHuffman);
+
+void
+decode(bool isHuffman);
 

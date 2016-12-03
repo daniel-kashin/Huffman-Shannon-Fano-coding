@@ -17,7 +17,7 @@ clearBuffer()
 }
 
 BitWriter::
-BitWriter(std::ofstream& inputStream) : stream(inputStream)
+BitWriter(std::ofstream& outputStream) : stream(outputStream)
 {
     clearBuffer();
 }

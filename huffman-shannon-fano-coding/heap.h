@@ -20,6 +20,7 @@ public:
 
         bool isLeaf();
 
+        int getFrequency();
 
         wchar_t value;
         int frequency;
