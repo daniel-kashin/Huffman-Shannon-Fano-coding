@@ -11,8 +11,9 @@ void
 BitReader::
 refreshBuffer()
 {
-    if (stream.eof()) throw std::exception("end of file");
-
+    if (stream.eof()) {
+        throw std::exception("end of file");
+    }
     buffer = 0;
     int i = sizeof(byte);
     stream.read((char*)&buffer, sizeof(byte));

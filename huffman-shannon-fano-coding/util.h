@@ -26,7 +26,7 @@ public:
 
     static std::unordered_map<wchar_t, int> getFileCharFrequencies(std::string&  filename);
 
-    static void fillHuffmanCodes(Heap::Node* root, std::unordered_map<wchar_t, std::vector<bool>*>* huffmanCodes);
+    static void fillCodes(Heap::Node* root, std::unordered_map<wchar_t, std::vector<bool>*>* huffmanCodes);
 
     static Heap::Node* buildHuffmanTree(std::vector<std::pair<wchar_t, int>> frequences);
     

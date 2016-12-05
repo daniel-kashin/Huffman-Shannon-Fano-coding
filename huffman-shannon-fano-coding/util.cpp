@@ -114,7 +114,6 @@ encodeFile(std::unordered_map<wchar_t, std::vector<bool>*>* huffmanCodes,
                 globalCounter += 4;
             }
         }
-
         stream.close();
     }
 
@@ -123,7 +122,7 @@ encodeFile(std::unordered_map<wchar_t, std::vector<bool>*>* huffmanCodes,
 
 void
 Util::
-fillHuffmanCodes(Heap::Node* root, std::unordered_map<wchar_t, std::vector<bool>*>* huffmanCodes)
+fillCodes(Heap::Node* root, std::unordered_map<wchar_t, std::vector<bool>*>* huffmanCodes)
 {
     const int top = 0;
     const int maxTreeHeight = 50;
@@ -177,7 +176,6 @@ getFileCharFrequencies(std::string& filename)
     if (stream.is_open()) {
         while (!stream.eof()) {
             globalCounter += 4;
-
             if (stream.get(current)) {
                 frequencies[current]++;
                 globalCounter += 2;
@@ -245,9 +243,8 @@ divideAndReturnParent(std::vector<std::pair<wchar_t, int>> frequences, bool root
         int separator = 0;
         globalCounter += 3;
 
-        while( separator < size && difference < previousDifference) {
+        while (separator < size && difference < previousDifference) {
             separator++;
-            globalCounter += 4;
 
             int first = 0;
             for (int f = 0; f < separator; ++f) first += frequences.at(f).second;
@@ -258,32 +255,30 @@ divideAndReturnParent(std::vector<std::pair<wchar_t, int>> frequences, bool root
             globalCounter += 2 + 5 * (separator);
 
             if (separator > 1) previousDifference = difference;
-            globalCounter += 2;
 
             difference = second - first;
             if (difference < 0) difference *= -1;
-            globalCounter += 3;
         }
         separator--;
         globalCounter += 1;
 
-        std::vector<std::pair<wchar_t,int>> leftSubarray(frequences.begin(), frequences.begin() + separator);
+        std::vector<std::pair<wchar_t, int>> leftSubarray(frequences.begin(), frequences.begin() + separator);
         std::vector<std::pair<wchar_t, int>> rightSubarray(frequences.begin() + separator, frequences.end());
-        globalCounter += 8;
-        
+
         Heap::Node* leftNode = divideAndReturnParent(leftSubarray, false);
         Heap::Node* rightNode = divideAndReturnParent(rightSubarray, false);
-        globalCounter += 7;
-        
+
         return new Heap::Node(0, leftNode->getFrequency() + rightNode->getFrequency(), leftNode, rightNode);
-    } else if (size == 1) {
+    }
+    else if (size == 1) {
         Heap::Node* node = new Heap::Node(frequences[0].first, frequences[0].second, nullptr, nullptr);
         globalCounter += 7;
-        
+
         if (root) {
             globalCounter += 4;
             return new Heap::Node(0, frequences[0].second, node, nullptr);
-        } else {
+        }
+        else {
             globalCounter += 2;
             return node;
         }
@@ -311,7 +306,8 @@ decodeNode(BitReader* bitReader)
     if (bitReader->readBit() == 1) {
         globalCounter += 2;
         return new Heap::Node(bitReader->readWChar(), nullptr, nullptr);
-    } else {
+    }
+    else {
         globalCounter += 4;
         Heap::Node* leftChild = decodeNode(bitReader);
         Heap::Node* rightChild = decodeNode(bitReader);
@@ -331,16 +327,18 @@ decodeFile(BitReader* bitReader, std::string& outputFileName, Heap::Node* root, 
     Heap::Node node = *root;
     while (position < length && !bitReader->eof()) {
         globalCounter += 3;
-        
+
         if (node.value != 0) {
             stream.write((wchar_t*)&node.value, 1);
             node = *root;
             position++;
             globalCounter += 7;
-        } else if (bitReader->readBit()) {
+        }
+        else if (bitReader->readBit()) {
             node = *node.right;
             globalCounter += 6;
-        } else {
+        }
+        else {
             node = *node.left;
             globalCounter += 7;
         }
